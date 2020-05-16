@@ -12,7 +12,7 @@ plain='\033[0m'
 software=(Docker_Caddy Docker_Caddy_cloudflare Docker)
 operation=(安装 更新设置 更新镜像 查看日志)
 # Make sure only root can run our script
-[[ $EUID -ne 0 ]] && echo -e "[${red}Error${plain}] 这个项目需要root权限！" && exit 1
+[[ $EUID -ne 0 ]] && echo -e "[${red}出现错误${plain}] 这个项目需要root权限！" && exit 1
 
 #Check system
 check_sys(){
@@ -100,7 +100,7 @@ error_detect_depends(){
     echo -e "[${green}Info${plain}] 开始安装包 ${depend}"
     ${command} > /dev/null 2>&1
     if [ $? -ne 0 ]; then
-        echo -e "[${red}Error${plain}] 安装失败 ${red}${depend}${plain}"
+        echo -e "[${red}出现错误${plain}] 安装失败 ${red}${depend}${plain}"
         echo "请自行百度、谷歌进行解决."
         exit 1
     fi
@@ -366,7 +366,7 @@ install_select(){
         break
         ;;
         *)
-        echo -e "[${red}Error${plain}] 请输入数字 [1-4]"
+        echo -e "[${red}输入错误${plain}] 请输入数字 [1-4]"
         ;;
     esac
     done
@@ -377,7 +377,7 @@ install_dependencies(){
         if [ ! -f /etc/yum.repos.d/epel.repo ]; then
             yum install -y epel-release > /dev/null 2>&1
         fi
-        [ ! -f /etc/yum.repos.d/epel.repo ] && echo -e "[${red}Error${plain}] Install EPEL repository failed, please check it." && exit 1
+        [ ! -f /etc/yum.repos.d/epel.repo ] && echo -e "[${red}出现错误${plain}] 安装EPEL存储库失败，请自行检查！" && exit 1
         [ ! "$(command -v yum-config-manager)" ] && yum install -y yum-utils > /dev/null 2>&1
         [ x"$(yum-config-manager epel | grep -w enabled | awk '{print $3}')" != x"True" ] && yum-config-manager --enable epel > /dev/null 2>&1
         echo -e "[${green}Info${plain}] 检查完整的EPEL存储库..."
@@ -495,7 +495,7 @@ case "${selected}" in
     break
     ;;
     *)
-    echo -e "[${red}Error${plain}] 请输入正确的数字！ [1-4]"
+    echo -e "[${red}输入错误${plain}] 请输入正确的数字！ [1-4]"
     ;;
 esac
 done
