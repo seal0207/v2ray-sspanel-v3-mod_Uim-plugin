@@ -12,7 +12,7 @@ plain='\033[0m'
 software=(Docker_Caddy Docker_Caddy_cloudflare Docker)
 operation=(安装 更新设置 更新镜像 日志)
 # Make sure only root can run our script
-[[ $EUID -ne 0 ]] && echo -e "[${red}Error${plain}] This script must be run as root!" && exit 1
+[[ $EUID -ne 0 ]] && echo -e "[${red}Error${plain}] 这个项目需要root权限！" && exit 1
 
 #Check system
 check_sys(){
@@ -97,11 +97,11 @@ get_char(){
 error_detect_depends(){
     local command=$1
     local depend=`echo "${command}" | awk '{print $4}'`
-    echo -e "[${green}Info${plain}] Starting to install package ${depend}"
+    echo -e "[${green}Info${plain}] 开始安装包 ${depend}"
     ${command} > /dev/null 2>&1
     if [ $? -ne 0 ]; then
-        echo -e "[${red}Error${plain}] Failed to install ${red}${depend}${plain}"
-        echo "Please visit: https://teddysun.com/486.html and contact."
+        echo -e "[${red}Error${plain}] 安装失败 ${red}${depend}${plain}"
+        echo "请访问: https://teddysun.com/486.html 进行解决."
         exit 1
     fi
 }
@@ -361,12 +361,12 @@ install_select(){
     case "${selected}" in
         1|2|3|4)
         echo
-        echo "You choose = ${software[${selected}-1]}"
+        echo "你选择的是 = ${software[${selected}-1]}"
         echo
         break
         ;;
         *)
-        echo -e "[${red}Error${plain}] Please only enter a number [1-4]"
+        echo -e "[${red}Error${plain}] 请输入数字 [1-4]"
         ;;
     esac
     done
@@ -404,11 +404,11 @@ install_dependencies(){
 }
 #update_image
 update_image_v2ray(){
-    echo "Shut down the current service"
+    echo "结束程序"
     docker-compose down
     echo "Pulling Images"
     docker-compose pull
-    echo "Start Service"
+    echo "启动服务"
     docker-compose up -d
 }
 
@@ -422,7 +422,7 @@ logs_v2ray(){
 # Update config
 update_config_v2ray(){
     cd ${cur_dir}
-    echo "Shut down the current service"
+    echo "结束程序"
     docker-compose down
     install_select
     case "${selected}" in
@@ -445,13 +445,13 @@ update_config_v2ray(){
         ;;
     esac
 
-    echo "Start Service"
+    echo "启动服务"
     docker-compose up -d
 
 }
 # remove config
 # Install v2ray
-install_v2ray(){
+安装_v2ray(){
     install_select
     case "${selected}" in
         1)
