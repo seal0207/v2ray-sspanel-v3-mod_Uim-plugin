@@ -101,7 +101,7 @@ error_detect_depends(){
     ${command} > /dev/null 2>&1
     if [ $? -ne 0 ]; then
         echo -e "[${red}Error${plain}] 安装失败 ${red}${depend}${plain}"
-        echo "请访问: https://teddysun.com/486.html 进行解决."
+        echo "请自行百度、谷歌进行解决."
         exit 1
     fi
 }
@@ -109,41 +109,41 @@ error_detect_depends(){
 # Pre-installation settings
 pre_install_docker_compose(){
     # Set ssrpanel_url
-    echo "Please ssrpanel_url"
+    echo "设置面板地址"
     read -p "(这里不能出错，请确你输入正确地址，默认https://www.selaplane.com):" ssrpanel_url
     [ -z "${ssrpanel_url}" ] && ssrpanel_url=https://www.selaplane.com
     echo
     echo "---------------------------"
-    echo "机场网址 = ${ssrpanel_url}"
+    echo "面板网址 = ${ssrpanel_url}"
     echo "---------------------------"
     echo
     # Set ssrpanel key
-    echo "机场key"
+    echo "设置面板key"
     read -p "这里不能输错，请确保输入正确:（默认：seal）" ssrpanel_key
     [ -z "${ssrpanel_key}" ]  && ssrpanel_key=seal
     echo
     echo "---------------------------"
-    echo "ssrpanel_key = ${ssrpanel_key}"
+    echo "面板key = ${ssrpanel_key}"
     echo "---------------------------"
     echo
 
     # Set ssrpanel speedtest function
-    echo "测速周期"
-    read -p "测速周期，默认为6小时执行一次:" ssrpanel_speedtest
+    echo "设置节点测速周期"
+    read -p "节点测速周期，默认为6小时执行一次:" ssrpanel_speedtest
     [ -z "${ssrpanel_speedtest}" ] && ssrpanel_speedtest=6
     echo
     echo "---------------------------"
-    echo "ssrpanel_speedtest = ${ssrpanel_speedtest}"
+    echo "节点测速周期 = ${ssrpanel_speedtest}"
     echo "---------------------------"
     echo
 
     # Set ssrpanel node_id
-    echo "机场节点序号"
-    read -p "节点序号默认为4:" ssrpanel_node_id
+    echo "面板节点序号"
+    read -p "面板节点序号默认为4:" ssrpanel_node_id
     [ -z "${ssrpanel_node_id}" ] && ssrpanel_node_id=4
     echo
     echo "---------------------------"
-    echo "ssrpanel_node_id = ${ssrpanel_node_id}"
+    echo "面板节点 = ${ssrpanel_node_id}"
     echo "---------------------------"
     echo
 
@@ -153,7 +153,7 @@ pre_install_docker_compose(){
     [ -z "${v2ray_api_port}" ] && v2ray_api_port=2333
     echo
     echo "---------------------------"
-    echo "V2ray API Listen port = ${v2ray_api_port}"
+    echo "V2ray API监听端口 = ${v2ray_api_port}"
     echo "---------------------------"
     echo
 
@@ -163,7 +163,7 @@ pre_install_docker_compose(){
     [ -z "${v2ray_downWithPanel}" ] && v2ray_downWithPanel=1
     echo
     echo "---------------------------"
-    echo "v2ray_downWithPanel = ${v2ray_downWithPanel}"
+    echo "下载节点序号 = ${v2ray_downWithPanel}"
     echo "---------------------------"
     echo
 }
@@ -171,33 +171,33 @@ pre_install_docker_compose(){
 pre_install_caddy(){
 
     # Set caddy v2ray domain
-    echo "输入你的caddy+v2ray域名"
+    echo "输入你的v2ray域名"
     read -p "(这里不能输错，请确认):" v2ray_domain
     [ -z "${v2ray_domain}" ]
     echo
     echo "---------------------------"
-    echo "v2ray_domain = ${v2ray_domain}"
+    echo "v2ray域名 = ${v2ray_domain}"
     echo "---------------------------"
     echo
 
 
     # Set caddy v2ray path
-    echo "设置caddy+v2ray的path"
-    read -p "默认path为/sela/:" v2ray_path
+    echo "设置v2ray的路径"
+    read -p "默认路径，默认为/sela/:" v2ray_path
     [ -z "${v2ray_path}" ] && v2ray_path="/sela/"
     echo
     echo "---------------------------"
-    echo "v2ray_path = ${v2ray_path}"
+    echo "v2ray路径 = ${v2ray_path}"
     echo "---------------------------"
     echo
 
     # Set caddy v2ray tls email
-    echo "设置caddy-tls证书域名email地址"
+    echo "设置caddy-tls证书域名邮箱地址"
     read -p "(默认为：seal0207@gmail.com ):" v2ray_email
     [ -z "${v2ray_email}" ] && v2ray_email=seal0207@gmail.com
     echo
     echo "---------------------------"
-    echo "v2ray_email = ${v2ray_email}"
+    echo "v2ray邮箱 = ${v2ray_email}"
     echo "---------------------------"
     echo
 
@@ -207,7 +207,7 @@ pre_install_caddy(){
     [ -z "${v2ray_local_port}" ] && v2ray_local_port=10550
     echo
     echo "---------------------------"
-    echo "v2ray_local_port = ${v2ray_local_port}"
+    echo "v2ray本地端口 = ${v2ray_local_port}"
     echo "---------------------------"
     echo
 
@@ -217,7 +217,7 @@ pre_install_caddy(){
     [ -z "${caddy_listen_port}" ] && caddy_listen_port=443
     echo
     echo "---------------------------"
-    echo "caddy_listen_port = ${caddy_listen_port}"
+    echo "caddy监听端口 = ${caddy_listen_port}"
     echo "---------------------------"
     echo
 
@@ -226,12 +226,12 @@ pre_install_caddy(){
 
 # Config docker
 config_docker(){
-    echo "Press any key to start...or Press Ctrl+C to cancel"
+    echo "输入任意内容启动...或者执行CTRL+C 取消"
     char=`get_char`
     cd ${cur_dir}
-    echo "install curl"
+    echo "安装 curl"
     install_dependencies
-    echo "Writing docker-compose.yml"
+    echo "写入 docker-compose.yml"
     curl -L https://raw.githubusercontent.com/seal0207/v2ray-sspanel-v3-mod_Uim-plugin/master/Docker/V2ray/docker-compose.yml > docker-compose.yml
     sed -i "s|node_id:.*|node_id: ${ssrpanel_node_id}|"  ./docker-compose.yml
     sed -i "s|sspanel_url:.*|sspanel_url: '${ssrpanel_url}'|"  ./docker-compose.yml
@@ -244,13 +244,13 @@ config_docker(){
 
 # Config caddy_docker
 config_caddy_docker(){
-    echo "Press any key to start...or Press Ctrl+C to cancel"
+    echo "输入任意内容启动...或者执行CTRL+C 取消"
     char=`get_char`
     cd ${cur_dir}
-    echo "install curl"
+    echo "安装 curl"
     install_dependencies
     curl -L https://raw.githubusercontent.com/seal0207/v2ray-sspanel-v3-mod_Uim-plugin/master/Docker/Caddy_V2ray/Caddyfile >  Caddyfile
-    echo "Writing docker-compose.yml"
+    echo "写入 docker-compose.yml"
     curl -L https://raw.githubusercontent.com/seal0207/v2ray-sspanel-v3-mod_Uim-plugin/master/Docker/Caddy_V2ray/docker-compose.yml > docker-compose.yml
     sed -i "s|node_id:.*|node_id: ${ssrpanel_node_id}|"  ./docker-compose.yml
     sed -i "s|sspanel_url:.*|sspanel_url: '${ssrpanel_url}'|"  ./docker-compose.yml
@@ -270,7 +270,7 @@ config_caddy_docker_cloudflare(){
 
     # Set caddy cloudflare ddns email
     echo "caddy cloudflare ddns email"
-    read -p "(No default ):" cloudflare_email
+    read -p "(无默认 ):" cloudflare_email
     [ -z "${cloudflare_email}" ]
     echo
     echo "---------------------------"
@@ -280,7 +280,7 @@ config_caddy_docker_cloudflare(){
 
     # Set caddy cloudflare ddns key
     echo "caddy cloudflare ddns key"
-    read -p "(No default ):" cloudflare_key
+    read -p "(无默认 ):" cloudflare_key
     [ -z "${cloudflare_email}" ]
     echo
     echo "---------------------------"
@@ -289,14 +289,14 @@ config_caddy_docker_cloudflare(){
     echo
     echo
 
-    echo "Press any key to start...or Press Ctrl+C to cancel"
+    echo "输入任意内容启动...或者执行CTRL+C 取消"
     char=`get_char`
     cd ${cur_dir}
     echo "install curl first "
     install_dependencies
-    echo "Starting Writing Caddy file and docker-compose.yml"
+    echo "启动并写入Caddy file and docker-compose.yml"
     curl -L https://raw.githubusercontent.com/seal0207/v2ray-sspanel-v3-mod_Uim-plugin/master/Docker/Caddy_V2ray/Caddyfile >Caddyfile
-    epcho "Writing docker-compose.yml"
+    epcho "写入 docker-compose.yml"
     curl -L https://raw.githubusercontent.com/seal0207/v2ray-sspanel-v3-mod_Uim-plugin/master/Docker/Caddy_V2ray/docker-compose.yml >docker-compose.yml
     sed -i "s|node_id:.*|node_id: ${ssrpanel_node_id}|"  ./docker-compose.yml
     sed -i "s|sspanel_url:.*|sspanel_url: '${ssrpanel_url}'|"  ./docker-compose.yml
@@ -317,22 +317,22 @@ config_caddy_docker_cloudflare(){
 
 # Install docker and docker compose
 install_docker(){
-    echo -e "Starting installing Docker "
+    echo -e "启动并安装 Docker "
     curl -fsSL https://get.docker.com -o get-docker.sh
     bash get-docker.sh
-    echo -e "Starting installing Docker Compose "
+    echo -e "启动并安装 Docker Compose "
     curl -L https://github.com/docker/compose/releases/download/1.17.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
     chmod +x /usr/local/bin/docker-compose
     curl -L https://raw.githubusercontent.com/docker/compose/1.8.0/contrib/completion/bash/docker-compose > /etc/bash_completion.d/docker-compose
     clear
-    echo "Start Docker "
+    echo "启动 Docker "
     service docker start
-    echo "Start Docker-Compose "
+    echo "启动 Docker-Compose "
     docker-compose up -d
     echo
-    echo -e "Congratulations, V2ray server install completed!"
+    echo -e "恭喜你，V2ray对接程序已经部署完成!"
     echo
-    echo "Enjoy it!"
+    echo "劲情享受吧!"
     echo
 }
 
@@ -351,12 +351,12 @@ install_select(){
     clear
     while true
     do
-    echo  "Which v2ray Docker you'd select:"
+    echo  "选择你要执行的Docker:"
     for ((i=1;i<=${#software[@]};i++ )); do
         hint="${software[$i-1]}"
         echo -e "${green}${i}${plain}) ${hint}"
     done
-    read -p "Please enter a number (Default ${software[0]}):" selected
+    read -p "请输入数字 (默认为 ${software[0]}):" selected
     [ -z "${selected}" ] && selected="1"
     case "${selected}" in
         1|2|3|4)
@@ -373,14 +373,14 @@ install_select(){
 }
 install_dependencies(){
     if check_sys packageManager yum; then
-        echo -e "[${green}Info${plain}] Checking the EPEL repository..."
+        echo -e "[${green}Info${plain}] 检查EPEL存储库..."
         if [ ! -f /etc/yum.repos.d/epel.repo ]; then
             yum install -y epel-release > /dev/null 2>&1
         fi
         [ ! -f /etc/yum.repos.d/epel.repo ] && echo -e "[${red}Error${plain}] Install EPEL repository failed, please check it." && exit 1
         [ ! "$(command -v yum-config-manager)" ] && yum install -y yum-utils > /dev/null 2>&1
         [ x"$(yum-config-manager epel | grep -w enabled | awk '{print $3}')" != x"True" ] && yum-config-manager --enable epel > /dev/null 2>&1
-        echo -e "[${green}Info${plain}] Checking the EPEL repository complete..."
+        echo -e "[${green}Info${plain}] 检查完整的EPEL存储库..."
 
         yum_depends=(
              curl
@@ -397,7 +397,7 @@ install_dependencies(){
             error_detect_depends "apt-get -y install ${depend}"
         done
     fi
-    echo -e "[${green}Info${plain}] Setting TimeZone to Shanghai"
+    echo -e "[${green}Info${plain}] 设置时区为上海"
     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
     date -s "$(curl -sI g.cn | grep Date | cut -d' ' -f3-6)Z"
 
@@ -406,7 +406,7 @@ install_dependencies(){
 更新镜像_v2ray(){
     echo "结束程序"
     docker-compose down
-    echo "Pulling Images"
+    echo "拉取镜像"
     docker-compose pull
     echo "启动服务"
     docker-compose up -d
@@ -415,7 +415,7 @@ install_dependencies(){
 #show last 100 line log
 
 查看日志_v2ray(){
-    echo "Last 100 line logs"
+    echo "历史100条日志情况"
     docker-compose logs --tail 100
 }
 
@@ -441,7 +441,7 @@ install_dependencies(){
         config_docker
         ;;
         *)
-        echo "Wrong number"
+        echo "请输入正确的数字！"
         ;;
     esac
 
@@ -469,7 +469,7 @@ install_dependencies(){
         config_docker
         ;;
         *)
-        echo "Wrong number"
+        echo "请输入正确的数字！"
         ;;
     esac
     install_docker
@@ -479,12 +479,12 @@ install_dependencies(){
 clear
 while true
 do
-echo  "Which operation you'd select:"
+echo  "请选择你要进行的项目:"
 for ((i=1;i<=${#operation[@]};i++ )); do
     hint="${operation[$i-1]}"
     echo -e "${green}${i}${plain}) ${hint}"
 done
-read -p "Please enter a number (Default ${operation[0]}):" selected
+read -p "请输入数字 (默认为 ${operation[0]}):" selected
 [ -z "${selected}" ] && selected="1"
 case "${selected}" in
     1|2|3|4)
@@ -495,7 +495,7 @@ case "${selected}" in
     break
     ;;
     *)
-    echo -e "[${red}Error${plain}] Please only enter a number [1-4]"
+    echo -e "[${red}Error${plain}] 请输入正确的数字！ [1-4]"
     ;;
 esac
 done
