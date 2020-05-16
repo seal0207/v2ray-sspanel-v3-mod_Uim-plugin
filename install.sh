@@ -110,15 +110,15 @@ error_detect_depends(){
 pre_install_docker_compose(){
     # Set ssrpanel_url
     echo "Please ssrpanel_url"
-    read -p "(There is no default value please make sure you input the right thing):" ssrpanel_url
+    read -p "(这里不能出错，请确你输入正确地址):" ssrpanel_url
     [ -z "${ssrpanel_url}" ]
     echo
     echo "---------------------------"
-    echo "ssrpanel_url = ${ssrpanel_url}"
+    echo "机场网址 = ${ssrpanel_url}"
     echo "---------------------------"
     echo
     # Set ssrpanel key
-    echo "ssrpanel key"
+    echo "机场key"
     read -p "(There is no default value please make sure you input the right thing):" ssrpanel_key
     [ -z "${ssrpanel_key}" ]
     echo
@@ -128,8 +128,8 @@ pre_install_docker_compose(){
     echo
 
     # Set ssrpanel speedtest function
-    echo "use ssrpanel speedtest"
-    read -p "(ssrpanel speedtest: Default (6) hours every time):" ssrpanel_speedtest
+    echo "测速周期"
+    read -p "(测速周期，默认为6小时执行一次:" ssrpanel_speedtest
     [ -z "${ssrpanel_speedtest}" ] && ssrpanel_speedtest=6
     echo
     echo "---------------------------"
@@ -138,9 +138,9 @@ pre_install_docker_compose(){
     echo
 
     # Set ssrpanel node_id
-    echo "ssrpanel node_id"
-    read -p "(Default value: 0 ):" ssrpanel_node_id
-    [ -z "${ssrpanel_node_id}" ] && ssrpanel_node_id=0
+    echo "机场节点序号"
+    read -p "(默认为4):" ssrpanel_node_id
+    [ -z "${ssrpanel_node_id}" ] && ssrpanel_node_id=4
     echo
     echo "---------------------------"
     echo "ssrpanel_node_id = ${ssrpanel_node_id}"
@@ -148,7 +148,7 @@ pre_install_docker_compose(){
     echo
 
     # Set V2ray backend API Listen port
-    echo "Setting V2ray backend API Listen port"
+    echo "设置v2ray返回数据监听端口" 
     read -p "(V2ray API Listen port(Default 2333):" v2ray_api_port
     [ -z "${v2ray_api_port}" ] && v2ray_api_port=2333
     echo
