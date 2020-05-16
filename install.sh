@@ -10,7 +10,7 @@ green='\033[0;32m'
 yellow='\033[0;33m'
 plain='\033[0m'
 software=(Docker_Caddy Docker_Caddy_cloudflare Docker)
-operation=(安装 更新设置 更新镜像 日志)
+operation=(安装 更新设置 更新镜像 查看日志)
 # Make sure only root can run our script
 [[ $EUID -ne 0 ]] && echo -e "[${red}Error${plain}] 这个项目需要root权限！" && exit 1
 
@@ -403,7 +403,7 @@ install_dependencies(){
 
 }
 #update_image
-update_image_v2ray(){
+更新镜像_v2ray(){
     echo "结束程序"
     docker-compose down
     echo "Pulling Images"
@@ -414,13 +414,13 @@ update_image_v2ray(){
 
 #show last 100 line log
 
-logs_v2ray(){
+查看日志_v2ray(){
     echo "Last 100 line logs"
     docker-compose logs --tail 100
 }
 
 # Update config
-update_config_v2ray(){
+更新设置_v2ray(){
     cd ${cur_dir}
     echo "结束程序"
     docker-compose down
