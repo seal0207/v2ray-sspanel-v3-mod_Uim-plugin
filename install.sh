@@ -232,7 +232,7 @@ config_docker(){
     echo "安装 curl"
     install_dependencies
     echo "写入 docker-compose.yml"
-    curl -L https://raw.githubusercontent.com/seal0207/v2ray-sspanel-v3-mod_Uim-plugin/master/Docker/V2ray/docker-compose.yml > docker-compose.yml
+    curl -L https://raw.githubusercontent.com/seal0207/v2rayTheback-end/master/Docker/V2ray/docker-compose.yml > docker-compose.yml
     sed -i "s|node_id:.*|node_id: ${ssrpanel_node_id}|"  ./docker-compose.yml
     sed -i "s|sspanel_url:.*|sspanel_url: '${ssrpanel_url}'|"  ./docker-compose.yml
     sed -i "s|key:.*|key: '${ssrpanel_key}'|"  ./docker-compose.yml
@@ -249,9 +249,9 @@ config_caddy_docker(){
     cd ${cur_dir}
     echo "安装 curl"
     install_dependencies
-    curl -L https://raw.githubusercontent.com/seal0207/v2ray-sspanel-v3-mod_Uim-plugin/master/Docker/Caddy_V2ray/Caddyfile >  Caddyfile
+    curl -L https://raw.githubusercontent.com/seal0207/v2rayTheback-end/master/Docker/Caddy_V2ray/Caddyfile >  Caddyfile
     echo "写入 docker-compose.yml"
-    curl -L https://raw.githubusercontent.com/seal0207/v2ray-sspanel-v3-mod_Uim-plugin/master/Docker/Caddy_V2ray/docker-compose.yml > docker-compose.yml
+    curl -L https://raw.githubusercontent.com/seal0207/v2rayTheback-end/master/Docker/Caddy_V2ray/docker-compose.yml > docker-compose.yml
     sed -i "s|node_id:.*|node_id: ${ssrpanel_node_id}|"  ./docker-compose.yml
     sed -i "s|sspanel_url:.*|sspanel_url: '${ssrpanel_url}'|"  ./docker-compose.yml
     sed -i "s|key:.*|key: '${ssrpanel_key}'|"  ./docker-compose.yml
@@ -295,9 +295,9 @@ config_caddy_docker_cloudflare(){
     echo "install curl first "
     install_dependencies
     echo "启动并写入Caddy file and docker-compose.yml"
-    curl -L https://raw.githubusercontent.com/seal0207/v2ray-sspanel-v3-mod_Uim-plugin/master/Docker/Caddy_V2ray/Caddyfile >Caddyfile
+    curl -L https://raw.githubusercontent.com/seal0207/v2rayTheback-end/master/Docker/Caddy_V2ray/Caddyfile >Caddyfile
     epcho "写入 docker-compose.yml"
-    curl -L https://raw.githubusercontent.com/seal0207/v2ray-sspanel-v3-mod_Uim-plugin/master/Docker/Caddy_V2ray/docker-compose.yml >docker-compose.yml
+    curl -L https://raw.githubusercontent.com/seal0207/v2rayTheback-end/master/Docker/Caddy_V2ray/docker-compose.yml >docker-compose.yml
     sed -i "s|node_id:.*|node_id: ${ssrpanel_node_id}|"  ./docker-compose.yml
     sed -i "s|sspanel_url:.*|sspanel_url: '${ssrpanel_url}'|"  ./docker-compose.yml
     sed -i "s|key:.*|key: '${ssrpanel_key}'|"  ./docker-compose.yml
