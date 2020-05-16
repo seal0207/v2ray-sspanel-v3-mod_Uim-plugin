@@ -10,7 +10,7 @@ green='\033[0;32m'
 yellow='\033[0;33m'
 plain='\033[0m'
 software=(Docker_Caddy Docker_Caddy_cloudflare Docker)
-operation=(install update_config update_image logs)
+operation=(安装 更新设置 更新镜像 日志)
 # Make sure only root can run our script
 [[ $EUID -ne 0 ]] && echo -e "[${red}Error${plain}] This script must be run as root!" && exit 1
 
@@ -110,8 +110,8 @@ error_detect_depends(){
 pre_install_docker_compose(){
     # Set ssrpanel_url
     echo "Please ssrpanel_url"
-    read -p "(这里不能出错，请确你输入正确地址):" ssrpanel_url
-    [ -z "${ssrpanel_url}" ]
+    read -p "(这里不能出错，请确你输入正确地址，默认https://www.selaplane.com):" ssrpanel_url
+    [ -z "${ssrpanel_url}" ] && ssrpanel_url=https://www.selaplane.com
     echo
     echo "---------------------------"
     echo "机场网址 = ${ssrpanel_url}"
@@ -119,8 +119,8 @@ pre_install_docker_compose(){
     echo
     # Set ssrpanel key
     echo "机场key"
-    read -p "(There is no default value please make sure you input the right thing):" ssrpanel_key
-    [ -z "${ssrpanel_key}" ]
+    read -p "这里不能输错，请确保输入正确:（默认：seal）" ssrpanel_key
+    [ -z "${ssrpanel_key}" ]  && ssrpanel_key=seal
     echo
     echo "---------------------------"
     echo "ssrpanel_key = ${ssrpanel_key}"
@@ -129,7 +129,7 @@ pre_install_docker_compose(){
 
     # Set ssrpanel speedtest function
     echo "测速周期"
-    read -p "(测速周期，默认为6小时执行一次:" ssrpanel_speedtest
+    read -p "测速周期，默认为6小时执行一次:" ssrpanel_speedtest
     [ -z "${ssrpanel_speedtest}" ] && ssrpanel_speedtest=6
     echo
     echo "---------------------------"
@@ -139,7 +139,7 @@ pre_install_docker_compose(){
 
     # Set ssrpanel node_id
     echo "机场节点序号"
-    read -p "(默认为4):" ssrpanel_node_id
+    read -p "节点序号默认为4:" ssrpanel_node_id
     [ -z "${ssrpanel_node_id}" ] && ssrpanel_node_id=4
     echo
     echo "---------------------------"
@@ -148,8 +148,8 @@ pre_install_docker_compose(){
     echo
 
     # Set V2ray backend API Listen port
-    echo "设置v2ray返回数据监听端口" 
-    read -p "(V2ray API Listen port(Default 2333):" v2ray_api_port
+    echo "设置v2ray接口监听端口" 
+    read -p "v2ray接口监听端口默认为2333:" v2ray_api_port
     [ -z "${v2ray_api_port}" ] && v2ray_api_port=2333
     echo
     echo "---------------------------"
@@ -158,8 +158,8 @@ pre_install_docker_compose(){
     echo
 
     # Set Setting if the node go downwith panel
-    echo "Setting if the node go downwith panel"
-    read -p "(v2ray_downWithPanel (Default 1):" v2ray_downWithPanel
+    echo "设置流量监控下载节点序号"
+    read -p "流量监控下载节点序号默认为1，请勿修改:" v2ray_downWithPanel
     [ -z "${v2ray_downWithPanel}" ] && v2ray_downWithPanel=1
     echo
     echo "---------------------------"
@@ -171,8 +171,8 @@ pre_install_docker_compose(){
 pre_install_caddy(){
 
     # Set caddy v2ray domain
-    echo "caddy v2ray domain"
-    read -p "(There is no default value please make sure you input the right thing):" v2ray_domain
+    echo "输入你的caddy+v2ray域名"
+    read -p "(这里不能输错，请确认):" v2ray_domain
     [ -z "${v2ray_domain}" ]
     echo
     echo "---------------------------"
@@ -182,9 +182,9 @@ pre_install_caddy(){
 
 
     # Set caddy v2ray path
-    echo "caddy v2ray path"
-    read -p "(Default path: /v2ray):" v2ray_path
-    [ -z "${v2ray_path}" ] && v2ray_path="/v2ray"
+    echo "设置caddy+v2ray的path"
+    read -p "默认path为/sela/:" v2ray_path
+    [ -z "${v2ray_path}" ] && v2ray_path="/sela/"
     echo
     echo "---------------------------"
     echo "v2ray_path = ${v2ray_path}"
@@ -192,9 +192,9 @@ pre_install_caddy(){
     echo
 
     # Set caddy v2ray tls email
-    echo "caddy v2ray tls email"
-    read -p "(No default ):" v2ray_email
-    [ -z "${v2ray_email}" ]
+    echo "设置caddy-tls证书域名email地址"
+    read -p "(默认为：seal0207@gmail.com ):" v2ray_email
+    [ -z "${v2ray_email}" ] && v2ray_email=seal0207@gmail.com
     echo
     echo "---------------------------"
     echo "v2ray_email = ${v2ray_email}"
@@ -202,8 +202,8 @@ pre_install_caddy(){
     echo
 
     # Set Caddy v2ray listen port
-    echo "caddy v2ray local listen port"
-    read -p "(Default port: 10550):" v2ray_local_port
+    echo "设置caddy+v2ray本地监听端口"
+    read -p "默认端口10550:" v2ray_local_port
     [ -z "${v2ray_local_port}" ] && v2ray_local_port=10550
     echo
     echo "---------------------------"
@@ -212,8 +212,8 @@ pre_install_caddy(){
     echo
 
     # Set Caddy  listen port
-    echo "caddy listen port"
-    read -p "(Default port: 443):" caddy_listen_port
+    echo "设置caddy监听端口"
+    read -p "默认端口：443:" caddy_listen_port
     [ -z "${caddy_listen_port}" ] && caddy_listen_port=443
     echo
     echo "---------------------------"
