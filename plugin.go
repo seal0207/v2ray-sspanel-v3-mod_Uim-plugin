@@ -2,9 +2,9 @@ package v2rayTheback-end
 
 import (
 	"fmt"
-	"github.com/rico93/v2ray-sspanel-v3-mod_Uim-plugin/client"
-	"github.com/rico93/v2ray-sspanel-v3-mod_Uim-plugin/config"
-	"github.com/rico93/v2ray-sspanel-v3-mod_Uim-plugin/webapi"
+	"github.com/seal0207/v2rayTheback-end/client"
+	"github.com/seal0207/v2rayTheback-end/config"
+	"github.com/seal0207/v2rayTheback-end/webapi"
 	"google.golang.org/grpc/status"
 	"os"
 	"runtime"
