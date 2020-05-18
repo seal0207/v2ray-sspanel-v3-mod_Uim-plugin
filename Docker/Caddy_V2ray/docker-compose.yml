@@ -2,7 +2,7 @@ version: '2'
 
 services:
  v2ray:
-    image: v2ray-go
+    image: seal0207/v2ray-go
     restart: always
     network_mode: "host"
     environment:
