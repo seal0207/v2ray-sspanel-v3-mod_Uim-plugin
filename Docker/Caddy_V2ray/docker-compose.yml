@@ -1,10 +1,12 @@
 version: '2'
 
 services:
- v2ray:
-    image: seal0207/v2ray-go
+  v2ray:
+    image: seal0207/v2ray-go:pj
     restart: always
     network_mode: "host"
+    extra_hosts:
+      auth.rico93.com: 127.0.0.1
     environment:
       sspanel_url: "https://xxxx"
       key: "xxxx"
@@ -13,7 +15,17 @@ services:
       node_id: 10
       api_port: 2333
       downWithPanel: 1
+      LDNS: "1.1.1.1"
       TZ: "Asia/Shanghai"
+      MYSQLHOST: "https://bing.com"
+      MYSQLDBNAME: "demo_dbname"
+      MYSQLUSR: "demo_user"
+      MYSQLPASSWD: "demo_dbpassword"
+      MYSQLPORT: 3306
+      PANELTYPE: 0
+      usemysql: 0
+      CF_Key: "bbbbbbbbbbbbbbbbbb"
+      CF_Email: "getbackcn@gmail.com"
     volumes:
       - /etc/localtime:/etc/localtime:ro
     logging:
@@ -21,7 +33,7 @@ services:
         max-size: "10m"
         max-file: "3"
 
- caddy:
+  caddy:
     image: seal0207/caddy
     restart: always
     environment:
@@ -34,6 +46,7 @@ services:
       - V2RAY_EMAIL=xxxx@outlook.com
       - V2RAY_PORT=10550
       - V2RAY_OUTSIDE_PORT=443
+      - TZ=Asia/Shanghai
     network_mode: "host"
     volumes:
       - ./.caddy:/root/.caddy
